@@ -1,20 +1,23 @@
 const express = require('express');
 const app = express();
+const Truyen = require('./models/truyen');
 app.use(express.json());
 
-const {getListcontroller} = require('./router/hot_plug.js');
+const {getListcontroller} = require('./crawl/hot_plug.js');
+
 app.get('/',async (req, res) => {
     list_controller = getListcontroller();
-    content = '';
+    var resu = [];
     
     for (let i = 0; i < list_controller.length; i++) {
-        content += await list_controller[i].c1();
+        truyen= await list_controller[i].c1();
+        resu.push(truyen);
 
     }
 
     
     
-    res.send(content);
+    res.send(resu);
     
 })
 
