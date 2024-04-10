@@ -15,5 +15,5 @@
     No routing yet (maybe dont need??)
 </li>
 <li>
-    Current only truyenfull supported, so i will get another chap in truyenfull just to show how hot plug work
+    Current only truyenfull supported, so every source will return content from truyenfull
 </li>
