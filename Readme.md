@@ -9,7 +9,7 @@
     For example: http://localhost:3000/?tentruyen=ngao-the-dan-than&chapter=5
 </li>
 <li>
-   Crawl code in "Crawl" folder 
+   Crawl code is in controller
 </li>
 <li>
     No routing yet (maybe dont need??)
