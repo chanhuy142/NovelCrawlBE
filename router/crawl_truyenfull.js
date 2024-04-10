@@ -40,7 +40,5 @@ const getContent = async (url) => {
     return content
     }
 
-getContent(link).then(content => {
-    console.log(content)
-})
+
 

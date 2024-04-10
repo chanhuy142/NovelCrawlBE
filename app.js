@@ -3,16 +3,19 @@ const app = express();
 app.use(express.json());
 
 const {getListcontroller} = require('./router/hot_plug.js');
-app.get('/', (req, res) => {
+app.get('/',async (req, res) => {
     list_controller = getListcontroller();
-    content='';
-    list_controller.forEach(controller => {
-        
-        content += controller.c1();
-        //new line
-        content += '\n';
-    });
+    content = '';
+    
+    for (let i = 0; i < list_controller.length; i++) {
+        content += await list_controller[i].c1();
+
+    }
+
+    
+    
     res.send(content);
+    
 })
 
 app.listen(3000, () => {
