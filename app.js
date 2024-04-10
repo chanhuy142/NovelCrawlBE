@@ -3,7 +3,7 @@ const app = express();
 const Truyen = require('./models/truyen');
 app.use(express.json());
 
-const {getListcontroller} = require('./crawl/hot_plug.js');
+const {getListcontroller} = require('./hotplug/hot_plug.js');
 
 app.get('/',async (req, res) => {
     list_controller = getListcontroller();
