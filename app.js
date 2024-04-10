@@ -9,21 +9,18 @@ app.get('/',async (req, res) => {
     list_controller = getListcontroller();
     tentruyen=req.query.tentruyen;
     chapter=req.query.chapter;
-    //http://localhost:3000/?tentruyen=ngao-the-dan-than&chapter=5
+    //http://localhost:3000/?tentruyen=ngao-the-dan-than&chapter=1
+     //http://localhost:3000/?tentruyen=muc-than-ky&chapter=1
+     //
+     //http://localhost:3000/?tentruyen=toan-chuc-phap-su&chapter=5
+     //http://localhost:3000/?tentruyen=de-ba&chapter=5
     var resu = [];
-    //tentruyen='ngao-the-dan-than';
-    //chapter=3;
     
     for (let i = 0; i < list_controller.length; i++) {
         truyen= await list_controller[i].c1(tentruyen,chapter);
         resu.push(truyen);
-
     }
-
-    
-    
     res.send(resu);
-    
 })
 
 app.listen(3000, () => {
