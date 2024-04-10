@@ -7,10 +7,15 @@ const {getListcontroller} = require('./crawl/hot_plug.js');
 
 app.get('/',async (req, res) => {
     list_controller = getListcontroller();
+    tentruyen=req.query.tentruyen;
+    chapter=req.query.chapter;
+    //http://localhost:3000/?tentruyen=ngao-the-dan-than&chapter=5
     var resu = [];
+    //tentruyen='ngao-the-dan-than';
+    //chapter=3;
     
     for (let i = 0; i < list_controller.length; i++) {
-        truyen= await list_controller[i].c1();
+        truyen= await list_controller[i].c1(tentruyen,chapter);
         resu.push(truyen);
 
     }
