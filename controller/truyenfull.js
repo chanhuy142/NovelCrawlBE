@@ -29,4 +29,6 @@ async function  c1(tentruyen,chapter){
     truyen = new Truyen('truyenfull',content);
     return truyen;
 }
+
+
 module.exports = {c1};

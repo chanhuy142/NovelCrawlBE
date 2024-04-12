@@ -40,6 +40,8 @@ async function  c1(tentruyen,chapter){
     url='https://truyen.tangthuvien.vn/doc-truyen/'+tentruyen+'/chuong-'+chapter+'/';
     
     content= await getContent(url)
+    //remove all unnecessary space
+    content = content.replace(/\s+/g,' ');
     truyen = new Truyen('tangtruyen',content);
     return truyen;
 }
