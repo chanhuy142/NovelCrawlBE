@@ -9,7 +9,7 @@ const getHtmlThoughCloudflare = async (url) => {
     return html;
   }
   
-const getContent = async (url) => {
+const getImage = async (url) => {
       
         
           const html = await getHtmlThoughCloudflare(url);
@@ -26,5 +26,7 @@ const getContent = async (url) => {
       
   }
 
+  getImage('https://truyen.tangthuvien.vn/doc-truyen/trong-sinh-chi-toi-cuong-kiem-than/').then((res) => {
+    console.log(res);
+  })
 
-getContent('https://truyen.tangthuvien.vn/doc-truyen/thuy-nhuong-tha-tu-tien-dich!--ai-bao-han-tu-tien!')

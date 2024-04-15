@@ -2,8 +2,8 @@ const jsdom = require("jsdom");
 const { JSDOM } = jsdom;
 const TruyenDetail = require('../models/truyen_detail')
 var cloudscraper = require('cloudscraper');
-url='https://truyen.tangthuvien.vn/tong-hop'
-base_url='https://truyen.tangthuvien.vn/doc-truyen/'
+url='https://truyenfull.vn/danh-sach/truyen-hot/'
+base_url='https://truyenfull.vn/'
 //chuẩn hóa tên truyện: vd: TỰ CẨM -> tu-cam
 //removeVietnameseTones: remove dấu tiếng việt
 function removeVietnameseTones(str) {
@@ -54,30 +54,41 @@ const getHtmlThoughCloudflare = async (url) => {
 
 const getTitle = async (url) => {
       try {
+        tittles=[]
+
         const html = await getHtmlThoughCloudflare(url);
         const dom = new JSDOM(html);
         //get ALL h4 tag
 
-        var content = dom.window.document.querySelectorAll('h4')
+        var content = dom.window.document.querySelectorAll('.truyen-title a');
+        //for each, get textContent
+        for (let i = 0; i < content.length; i++) {
+          
+          
+          //console.log(content[i].textContent);
+          tittles.push(content[i].textContent)
+        }
         //remove Tình trạng,Thể loại,Xếp hạng,Thời gian,Số chương,Sắp xếp theo,Tags
-        content = Array.from(content).slice(7)
+        //content = Array.from(content).slice(7)
       } catch (error) {
         //console.log(error);
 
       }
-      return content
+      return tittles
   }
 
   const getTitles = async (url) => {
+    
     urls=[]
     for (let i = 1; i < 3; i++) {
-      urls.push(url+'?rank=td&page='+i)
+      urls.push(url+'trang-'+i)
     }
+    console.log(urls);
     contents=[]
     for (let i = 0; i < urls.length; i++) {
       content= await getTitle(urls[i])
       content.forEach(function(element){
-        contents.push(element.textContent)
+        contents.push(element)
       })
     }
     return contents
@@ -87,12 +98,16 @@ const getTitle = async (url) => {
     const html = await getHtmlThoughCloudflare(url);
    try {
     
-    //console.log(html);
+    console.log(html);
     const dom = new JSDOM(html);
     //get img
-   Content = dom.window.document.querySelector('img');
+   Content = dom.window.document.querySelector('.book>img');
    //console.log(html);
    source=Content.src;
+   if (source==null){
+     source="testttttttttttttttttttttttttt"
+   }
+
   //console.log(source);
   return source
    } catch (error) {
@@ -109,9 +124,9 @@ const getTitle = async (url) => {
       const titles = await getTitles(url)
       
       for (let i = 0; i < titles.length; i++) {
-        //get image
-        const image = await getImage(base_url+standardizeName(titles[i]))
         
+        const image = await getImage(base_url+standardizeName(titles[i]))
+        console.log(image);
         images.push(image)
         
         truyen_detail = new TruyenDetail(
@@ -128,6 +143,5 @@ const getTitle = async (url) => {
     }
   }
 
-  getTruyenDetails(url).then((res) => {
-    console.log(res);
-  })
+
+module.exports = {getTruyenDetails}
