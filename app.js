@@ -1,8 +1,8 @@
 const express = require('express');
 const app = express();
 const Truyen = require('./models/truyen');
-const TruyenDetail = require('./models/truyen_detail');
-const {getTruyenDetails} = require('./truyendetailcontroller/truyen_detail_controller');
+const TruyenDetail2 = require('./models/truyen_detailv2');
+const {getDetail} = require('./truyendetailcontroller/truyen_detail_controllerv2');
 app.use(express.json());
 
 const {getListcontroller} = require('./hotplug/hot_plug.js');
@@ -28,15 +28,13 @@ app.get('/',async (req, res) => {
 app.get('/details',async (req, res) => {
     
     var resu = [];
-    resu = await getTruyenDetails('https://truyenfull.vn/danh-sach/truyen-hot/');
+    resu = await getDetail('https://truyenfull.vn/danh-sach/truyen-hot/');
     //remove all Truyen that have no cover atrribute
-    resu2 = resu.filter(function (el) {
-        return el.cover != null;
-    });
+    
     
     
     let truyenObject = {
-        "TruyenDetail": resu2
+        "TruyenDetail": resu
     };
     let jsonString = JSON.parse(JSON.stringify(truyenObject));
     res.json(jsonString);
