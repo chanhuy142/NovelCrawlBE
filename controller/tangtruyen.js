@@ -41,8 +41,13 @@ async function  c1(tentruyen,chapter){
     
     content= await getContent(url)
     //remove all unnecessary space
-    content = content.replace(/\s+/g,' ');
-    truyen = new Truyen('tangtruyen',content);
+    if (content) {
+      //remove all unnecessary space
+      content = content.replace(/\s+/g,' ');
+    } else {
+      console.error('getContent returned undefined');
+    }
+    truyen = new Truyen('Tang Thu Vien',content);
     return truyen;
 }
 

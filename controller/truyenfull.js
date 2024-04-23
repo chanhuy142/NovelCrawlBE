@@ -26,7 +26,7 @@ const getContent = async (url) => {
 async function  c1(tentruyen,chapter){
     url='https://truyenfull.vn/'+tentruyen+'/chuong-'+chapter+'/';
     content= await getContent(url)
-    truyen = new Truyen('truyenfull',content);
+    truyen = new Truyen('TruyenFull',content);
     return truyen;
 }
 function c2(){
