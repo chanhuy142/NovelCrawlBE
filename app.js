@@ -22,7 +22,11 @@ app.get('/',async (req, res) => {
         truyen= await list_controller[i].c1(tentruyen,chapter);
         resu.push(truyen);
     }
-    res.send(resu);
+    let truyenObject = {
+        "TruyenChapter": resu
+    };
+    let jsonString = JSON.parse(JSON.stringify(truyenObject));
+    res.json(jsonString);
 })
 
 app.get('/source',async (req, res) => {
@@ -34,7 +38,11 @@ app.get('/source',async (req, res) => {
         truyen= await list_controller[i].c2();
         resu.push(truyen);
     }
-    res.send(resu);
+    let truyenObject = {
+        "TruyenSource": resu
+    };
+    let jsonString = JSON.parse(JSON.stringify(truyenObject));
+    res.json(jsonString);
 })
 
 app.get('/details',async (req, res) => {
