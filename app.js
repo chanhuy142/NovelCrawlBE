@@ -5,6 +5,8 @@ const TruyenDetail2 = require('./models/truyen_detailv2');
 const {getDetail} = require('./truyendetailcontroller/truyen_detail_controllerv2');
 app.use(express.json());
 
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
+
 const {getListcontroller} = require('./hotplug/hot_plug.js');
 
 app.get('/',async (req, res) => {
