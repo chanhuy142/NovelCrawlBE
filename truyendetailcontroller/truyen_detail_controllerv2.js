@@ -43,7 +43,8 @@ const getDetail = async (url) => {
           titles.push(title[i].textContent);
           imageurls.push(imageurl[i].getAttribute('data-image'));
           authors.push(author[i].textContent);
-          chaps.push(chap[i].textContent);
+          //extract number and add to chaps ex: chuong 1 -> 1
+          chaps.push(chap[i].textContent.match(/\d+/)[0]);
 
           const newurl=title[i].getAttribute('href')
           urls.push(title[i].getAttribute('href'));
