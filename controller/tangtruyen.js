@@ -46,6 +46,8 @@ async function  c1(tentruyen,chapter){
     return truyen;
 }
 
+function c2(){
+  return 'Tang Thu Vien'
+}
 
-
-module.exports = {c1};
+module.exports = {c1,c2};

@@ -25,6 +25,18 @@ app.get('/',async (req, res) => {
     res.send(resu);
 })
 
+app.get('/source',async (req, res) => {
+    list_controller = getListcontroller();
+    
+    var resu = [];
+    
+    for (let i = 0; i < list_controller.length; i++) {
+        truyen= await list_controller[i].c2();
+        resu.push(truyen);
+    }
+    res.send(resu);
+})
+
 app.get('/details',async (req, res) => {
     
     var resu = [];

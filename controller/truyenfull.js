@@ -29,6 +29,8 @@ async function  c1(tentruyen,chapter){
     truyen = new Truyen('truyenfull',content);
     return truyen;
 }
+function c2(){
+  return 'TruyenFull'
+}
 
-
-module.exports = {c1};
+module.exports = {c1,c2};
