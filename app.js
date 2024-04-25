@@ -63,6 +63,32 @@ app.get('/details',async (req, res) => {
 
 })
 
+app.get('/search',async (req, res) => {
+    list_controller = getListcontroller();
+    //console.log(list_controller.length);
+    keyword=req.query.keyword;
+    var resu = [];
+    
+    
+    for (let i = 0; i < list_controller.length; i++) {
+        truyen= await list_controller[i].c3(keyword);
+        
+        resu.push(truyen);
+    }
+    //reverse the array
+    resu = resu.reverse();
+    //flatten the array
+    resu = resu.flat(1);
+    
+       
+    
+    let truyenObject = {
+        "TruyenSearch": resu
+    };
+    let jsonString = JSON.parse(JSON.stringify(truyenObject));
+    res.json(jsonString);
+})
+
 app.listen(3000, () => {
     console.log('Server is running on port 3000');
 })

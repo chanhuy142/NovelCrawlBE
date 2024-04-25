@@ -2,8 +2,7 @@ const jsdom = require("jsdom");
 const { JSDOM } = jsdom;
 const TruyenDetail2 = require('../models/truyen_detailv2')
 var cloudscraper = require('cloudscraper');
-url='https://truyenfull.vn/danh-sach/truyen-hot/'
-base_url='https://truyenfull.vn/'
+
 
 const getHtmlThoughCloudflare = async (url) => {
     try {
@@ -81,8 +80,6 @@ const getDetail = async (url) => {
  
 
 
-  getDetail(url).then(function(result){
-    //console.log(result);
-  })
+ 
 
   module.exports = {getDetail};
