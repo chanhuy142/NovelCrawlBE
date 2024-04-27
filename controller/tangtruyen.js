@@ -86,7 +86,7 @@ async function c3(keyword){
     for (let i = 0; i < title.length; i++) {
         //console.log(title[i].textContent)
       titles.push(title[i].textContent);
-      imageurls.push(imageurl[0].src);
+      imageurls.push(imageurl[i].src);
     
       authors.push(author[i].textContent);
       //extract number and add to chaps ex: chuong 1 -> 1
