@@ -58,8 +58,11 @@ function c2(){
 
 async function c3(keyword){
   try {
+    //change keyword: ngao+the to ngao%20the
+    const standardizedKeyword = keyword.replace(/\s/g, '%20');
+    console.log(standardizedKeyword);
     const base_url='https://truyen.tangthuvien.vn/ket-qua-tim-kiem?term='
-    const url2=base_url+keyword
+    const url2=base_url+standardizedKeyword
     //console.log(url)
     titles=[]
     imageurls=[]
@@ -111,7 +114,7 @@ async function c3(keyword){
         chaps[i],
         descriptions[i]
       )
-      console.log(truyen_detail)
+      //console.log(truyen_detail)
 
       res.push(truyen_detail)
     }
