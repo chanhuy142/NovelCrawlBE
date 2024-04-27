@@ -83,7 +83,7 @@ app.get('/search',async (req, res) => {
        
     
     let truyenObject = {
-        "TruyenSearch": resu
+        "TruyenDetail": resu
     };
     let jsonString = JSON.parse(JSON.stringify(truyenObject));
     res.json(jsonString);

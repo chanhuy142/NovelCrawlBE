@@ -36,6 +36,7 @@ function c2(){
 
 async function c3(keyword){
   try {
+  
     const base_url='https://truyenfull.vn/tim-kiem/?tukhoa='
     const url=base_url+keyword
     console.log(url)
