@@ -44,7 +44,7 @@ async function  c1(tentruyen,chapter){
     //remove all unnecessary space
     if (content) {
       //remove all unnecessary space
-      content = content.replace(/\s+/g,' ');
+      //content = content.replace(/\s+/g,' ');
     } else {
       console.error('getContent returned undefined');
     }

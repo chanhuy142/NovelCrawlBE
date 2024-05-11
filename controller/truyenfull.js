@@ -18,7 +18,14 @@ const getContent = async (url) => {
       try {
         const html = await getHtmlThoughCloudflare(url);
         const dom = new JSDOM(html);
-        var content = dom.window.document.querySelector('.chapter-c').textContent;
+        //var content = dom.window.document.querySelector('.chapter-c').textContent;
+        const chapter = dom.window.document.querySelector('.chapter-c');
+        var content = '';
+        chapter.childNodes.forEach(node => {
+        if (node.nodeType === 3) { // Node.TEXT_NODE
+            content += node.textContent + '\n\n';
+        }
+    });
       } catch (error) {
         //console.log(error);
       }
@@ -76,8 +83,17 @@ async function c3(keyword){
       html2=await getHtmlThoughCloudflare(newurl)
       const dom2 = new JSDOM(html2);
       var description = dom2.window.document.querySelector('.desc-text');
-      descriptions.push(description.textContent);
-      
+      //descriptions.push(description.textContent);
+      var text = '';
+      description.childNodes.forEach(node => {
+        if (node.nodeType === 3 || node.nodeName.toLowerCase() === 'i') { // Node.TEXT_NODE
+            text += node.textContent + '\n';
+        } else if (node.nodeType === 1 && (node.nodeName.toLowerCase() === 'strong'||node.nodeName.toLowerCase() === 'b')) { // Node.ELEMENT_NODE
+          text += node.textContent + ' ';
+      }
+      });
+
+      descriptions.push(text);
       truyen_detail = new TruyenDetail2(
         titles[i],
         imageurls[i],
