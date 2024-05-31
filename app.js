@@ -82,11 +82,13 @@ app.get('/search', async (req, res) => {
 	res.json(jsonString);
 });
 
-app.get('/download', async (req, res) => {
+app.post('/download', async (req, res) => {
 	//localhost:3000/download?content=hello
 
-	console.log(req.query.content);
-	content = req.query.content;
+	//get content from post request
+	content = req.body.content;
+
+	console.log(content);
 	const fs = require('fs');
 	const pdf = require('pdf-creator-node');
 	const path = require('path');
@@ -127,14 +129,13 @@ app.get('/download', async (req, res) => {
 	};
 	pdf
 		.create(document, options)
-		.then((res) => {
-			console.log(res);
+		.then((filepath) => {
+			console.log(filepath);
+			res.download('./output.pdf');
 		})
 		.catch((error) => {
 			console.error(error);
 		});
-
-	res.download('./output.pdf');
 });
 
 app.listen(3000, () => {
