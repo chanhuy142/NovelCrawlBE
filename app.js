@@ -87,7 +87,7 @@ app.post('/download', async (req, res) => {
 
 	//get content from post request
 	content = req.body.content;
-
+	filename = req.body.name;
 	console.log(content);
 	const fs = require('fs');
 	const pdf = require('pdf-creator-node');
@@ -99,13 +99,21 @@ app.post('/download', async (req, res) => {
     <head>
     <style>
     body {
-        font-family: Arial, sans-serif;
-        font-size: 12px;
+        font-family: "Comic Sans MS", cursive, sans-serif;
+        font-size: 25px;
+		white-space: pre;
     }
+	pre {
+		font-family: "Comic Sans MS", cursive, sans-serif;
+		font-size: 25px;
+		word-wrap: break-word;
+		white-space: pre-wrap;
+		text-align: justify;
+	}
     </style>
     </head>
     <body>
-    ${content}
+    <pre>${content}</pre>
     </body>
     </html>
     `;
@@ -115,9 +123,17 @@ app.post('/download', async (req, res) => {
 		border: '10mm',
 		header: {
 			height: '45mm',
+			contents: '<div style="text-align: center;">'+filename+'</div>',
 		},
 		footer: {
 			height: '28mm',
+			contents: {
+				first: 'Cover page',
+				2: 'Second page', // Any page number is working. 1-based index
+				default:
+					'<span style="color: #444;">{{page}}</span>/<span>{{pages}}</span>', // fallback value
+				last: 'Last Page',
+			},
 		},
 	};
 	var document = {

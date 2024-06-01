@@ -10,7 +10,7 @@ function createPdfFile(content) {
     <style>
     body {
         font-family: Arial, sans-serif;
-        font-size: 12px;
+        font-size: 20px;
     }
     </style>
     </head>
@@ -25,7 +25,7 @@ function createPdfFile(content) {
 		border: '10mm',
 		header: {
 			height: '45mm',
-			contents: '<div style="text-align: center;">Author: Shyam Hajare</div>',
+			contents: '<div style="text-align: center;">NovelCrawl</div>',
 		},
 		footer: {
 			height: '28mm',
