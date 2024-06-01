@@ -24,7 +24,8 @@ const getContent = async (url) => {
           //console.log(html);
             const dom2 = new JSDOM(html);
             var gContent = dom2.window.document.querySelector('.content'); //.content
-            content = gContent.textContent;
+
+            content = gContent.textContent.replace('\t','');
             return content
           }
           content = gContent.textContent;
