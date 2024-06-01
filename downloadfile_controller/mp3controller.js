@@ -3,7 +3,7 @@ async function createFile(content, filename) {
 	const pdf = require('pdf-creator-node');
 	const path = require('path');
 
-	let filePath = './output.pdf';
+	let filePath = './output.mp3';
 	//create pdf without html file
 	var html;
 	html = `

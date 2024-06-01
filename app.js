@@ -7,10 +7,12 @@ const {
 } = require('./truyendetailcontroller/truyen_detail_controllerv2');
 app.use(express.json());
 
-const { getListcontroller } = require('./hotplug/hot_plug.js');
+const { getListcontroller, getListDownloadFile } = require('./hotplug/hot_plug.js');
+
 
 app.get('/', async (req, res) => {
 	list_controller = getListcontroller();
+	
 	tentruyen = req.query.tentruyen;
 	chapter = req.query.chapter;
 	//http://localhost:3000/?tentruyen=ngao-the-dan-than&chapter=1
@@ -83,75 +85,42 @@ app.get('/search', async (req, res) => {
 });
 
 app.post('/download', async (req, res) => {
-	//localhost:3000/download?content=hello
 
+	list_downloadfile = getListDownloadFile();
 	//get content from post request
 	content = req.body.content;
 	filename = req.body.name;
+	fileType = req.body.fileType;
 	console.log(content);
-	const fs = require('fs');
-	const pdf = require('pdf-creator-node');
-	const path = require('path');
 
-	var html;
-	html = `
-    <html>
-    <head>
-    <style>
-    body {
-        font-family: "Comic Sans MS", cursive, sans-serif;
-        font-size: 25px;
-		white-space: pre;
-    }
-	pre {
-		font-family: "Comic Sans MS", cursive, sans-serif;
-		font-size: 25px;
-		word-wrap: break-word;
-		white-space: pre-wrap;
-		text-align: justify;
+	for (let i = 0; i < list_downloadfile.length; i++) {
+		if (list_downloadfile[i].getFileType() == fileType) {
+			list_downloadfile[i].createFile(content, filename)
+			.then((result) => {
+				console.log(result);
+				res.download(result);
+			})
+			.catch((error) => {
+				console.error(error);
+			});
+		}
 	}
-    </style>
-    </head>
-    <body>
-    <pre>${content}</pre>
-    </body>
-    </html>
-    `;
-	var options = {
-		format: 'A4',
-		orientation: 'portrait',
-		border: '10mm',
-		header: {
-			height: '45mm',
-			contents: '<div style="text-align: center;">'+filename+'</div>',
-		},
-		footer: {
-			height: '28mm',
-			contents: {
-				first: 'Cover page',
-				2: 'Second page', // Any page number is working. 1-based index
-				default:
-					'<span style="color: #444;">{{page}}</span>/<span>{{pages}}</span>', // fallback value
-				last: 'Last Page',
-			},
-		},
+	
+});
+
+
+app.get('/filetypes', async (req, res) => {
+	list_downloadfile = getListDownloadFile();
+	var resu = [];
+
+	for (let i = 0; i < list_downloadfile.length; i++) {
+		resu.push(list_downloadfile[i].getFileType());
+	}
+	let fileTypes = {
+		FileType: resu,
 	};
-	var document = {
-		html: html,
-		data: {
-			content: content,
-		},
-		path: './output.pdf',
-	};
-	pdf
-		.create(document, options)
-		.then((filepath) => {
-			console.log(filepath);
-			res.download('./output.pdf');
-		})
-		.catch((error) => {
-			console.error(error);
-		});
+	let jsonString = JSON.parse(JSON.stringify(fileTypes));
+	res.json(jsonString);
 });
 
 app.listen(3000, () => {
