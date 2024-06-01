@@ -5,7 +5,6 @@ function getFileType() {
 
 async function createFile(content, filename) {
     const Epub = require('epub-gen');
-    console.log('Creating Option...');
     let filePath = './output.epub';
     var html;
 	html = `
@@ -45,9 +44,7 @@ async function createFile(content, filename) {
     };
 
     try {
-        console.log('Creating Ebook...');
         let epubGen = new Epub(option, filePath);
-        console.log('Generating Ebook...');
         await epubGen.promise.then(() => {
             console.log('Ebook Generated Successfully');
         }).catch(err => {

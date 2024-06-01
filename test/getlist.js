@@ -129,5 +129,5 @@ const getTitle = async (url) => {
   }
 
   getTruyenDetails(url).then((res) => {
-    console.log(res);
+    //console.log(res);
   })

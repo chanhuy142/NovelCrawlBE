@@ -1,10 +1,10 @@
 
 
-var Truyen = require('../models/truyen')
+var Novel = require('../models/novel')
 const jsdom = require("jsdom");
 const { JSDOM } = jsdom;
 var cloudscraper = require('cloudscraper');
-const TruyenDetail2 = require('../models/truyen_detailv2')
+const NovelDetail = require('../models/novel_detail')
 const getHtmlThoughCloudflare = async (url) => {
     try {
       const html = await cloudscraper.get(url);
@@ -31,22 +31,22 @@ const getContent = async (url) => {
       }
       return content
   }
-async function  c1(tentruyen,chapter){
-    url='https://truyenfull.vn/'+tentruyen+'/chuong-'+chapter+'/';
+async function  getNovel(novelName,chapter){
+    url='https://truyenfull.vn/'+novelName+'/chuong-'+chapter+'/';
     content= await getContent(url)
-    truyen = new Truyen('TruyenFull',content);
-    return truyen;
+    novel = new Novel('TruyenFull',content);
+    return novel;
 }
-function c2(){
+function getSourceName(){
   return 'TruyenFull'
 }
 
-async function c3(keyword){
+async function searchNovel(keyword){
   try {
-    console.log(keyword)
+    //console.log(keyword)
     const base_url='https://truyenfull.vn/tim-kiem/?tukhoa='
     const url=base_url+keyword
-    console.log(url)
+    //console.log(url)
     titles=[]
     imageurls=[]
     authors=[]
@@ -94,7 +94,7 @@ async function c3(keyword){
       });
 
       descriptions.push(text);
-      truyen_detail = new TruyenDetail2(
+      novel_detail = new NovelDetail(
         titles[i],
         imageurls[i],
         urls[i],
@@ -107,7 +107,7 @@ async function c3(keyword){
       
       //console.log(description.textContent);
 
-      res.push(truyen_detail)
+      res.push(novel_detail)
     }
 
    
@@ -119,4 +119,4 @@ async function c3(keyword){
   return res
 }
 
-module.exports = {c1,c2,c3};
+module.exports = {getNovel,getSourceName,searchNovel};

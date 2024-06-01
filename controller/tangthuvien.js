@@ -1,8 +1,8 @@
-var Truyen = require('../models/truyen')
+var Novel = require('../models/novel')
 const jsdom = require("jsdom");
 const { JSDOM } = jsdom;
 var cloudscraper = require('cloudscraper');
-const TruyenDetail2 = require('../models/truyen_detailv2')
+const NovelDetail = require('../models/novel_detail')
 const getHtmlThoughCloudflare = async (url) => {
     
       const html = await cloudscraper.get(url);
@@ -36,9 +36,10 @@ const getContent = async (url) => {
       
       
   }
-async function  c1(tentruyen,chapter){
+async function  getNovel(novelName,chapter){
     //construct url
-    url='https://truyen.tangthuvien.vn/doc-truyen/'+tentruyen+'/chuong-'+chapter+'/';
+    url='https://truyen.tangthuvien.vn/doc-truyen/'+novelName+'/chuong-'+chapter+'/';
+    //console.log(url)
     
     content= await getContent(url)
     //remove all unnecessary space
@@ -48,19 +49,19 @@ async function  c1(tentruyen,chapter){
     } else {
       console.error('getContent returned undefined');
     }
-    truyen = new Truyen('Tang Thu Vien',content);
-    return truyen;
+    novel = new Novel('Tang Thu Vien',content);
+    return novel;
 }
 
-function c2(){
+function getSourceName(){
   return 'Tang Thu Vien'
 }
 
-async function c3(keyword){
+async function searchNovel(keyword){
   try {
     //change keyword: ngao+the to ngao%20the
     const standardizedKeyword = keyword.replace(/\s/g, '%20');
-    console.log(standardizedKeyword);
+    //console.log(standardizedKeyword);
     const base_url='https://truyen.tangthuvien.vn/ket-qua-tim-kiem?term='
     const url2=base_url+standardizedKeyword
     //console.log(url)
@@ -106,7 +107,7 @@ async function c3(keyword){
       //console.log(description.textContent);
       descriptions.push(description.textContent);
       
-      truyen_detail = new TruyenDetail2(
+      novel_detail = new NovelDetail(
         titles[i],
         imageurls[i],
         urls[i],
@@ -114,9 +115,9 @@ async function c3(keyword){
         chaps[i],
         descriptions[i]
       )
-      //console.log(truyen_detail)
 
-      res.push(truyen_detail)
+
+      res.push(novel_detail)
     }
 
     
@@ -130,4 +131,4 @@ async function c3(keyword){
   return res
 }
 
-module.exports = {c1,c2,c3};
+module.exports = {getNovel,getSourceName,searchNovel};

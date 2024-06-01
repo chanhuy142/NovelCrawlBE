@@ -1,4 +1,4 @@
-class Truyen {
+class Novel {
     constructor(source,content) {
         this.source = source;
         this.content = content;
@@ -7,4 +7,4 @@ class Truyen {
 
 }
 
-module.exports = Truyen;
+module.exports = Novel;

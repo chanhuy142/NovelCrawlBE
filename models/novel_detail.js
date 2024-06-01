@@ -1,6 +1,6 @@
-class TruyenDetail2 {
+class NovelDetail {
     constructor(title, cover, url, author, numberOfChapters, description) {
-        this.tenTruyen = title;
+        this.novelName = title;
         this.cover= cover;
         this.url = url;
         this.author = author;
@@ -9,4 +9,4 @@ class TruyenDetail2 {
     }
 }
 
-module.exports = TruyenDetail2;
+module.exports = NovelDetail;

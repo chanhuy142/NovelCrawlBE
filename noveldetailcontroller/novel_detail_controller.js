@@ -1,6 +1,6 @@
 const jsdom = require("jsdom");
 const { JSDOM } = jsdom;
-const TruyenDetail2 = require('../models/truyen_detailv2')
+const NovelDetail = require('../models/novel_detail')
 var cloudscraper = require('cloudscraper');
 
 
@@ -61,7 +61,7 @@ const getDetail = async (url) => {
           });
 
           descriptions.push(text);
-          truyen_detail = new TruyenDetail2(
+          novel_detail = new NovelDetail(
             titles[i],
             imageurls[i],
             urls[i],
@@ -74,7 +74,7 @@ const getDetail = async (url) => {
           
           //console.log(description.textContent);
 
-          res.push(truyen_detail)
+          res.push(novel_detail)
         }
 
        
