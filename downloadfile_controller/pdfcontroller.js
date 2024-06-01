@@ -11,12 +11,12 @@ async function createFile(content, filename) {
     <head>
     <style>
     body {
-        font-family: "Comic Sans MS", cursive, sans-serif;
+        font-family: Georgia, Arial, sans-serif;
         font-size: 25px;
 		white-space: pre;
     }
 	pre {
-		font-family: "Comic Sans MS", cursive, sans-serif;
+		font-family:  Georgia, Arial, sans-serif;
 		font-size: 25px;
 		word-wrap: break-word;
 		white-space: pre-wrap;

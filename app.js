@@ -91,10 +91,12 @@ app.post('/download', async (req, res) => {
 	content = req.body.content;
 	filename = req.body.name;
 	fileType = req.body.fileType;
-	console.log(content);
-
+	
+	console.log(list_downloadfile[0].getFileType());
+	console.log(fileType);
 	for (let i = 0; i < list_downloadfile.length; i++) {
-		if (list_downloadfile[i].getFileType() == fileType) {
+		if (list_downloadfile[i].getFileType() === fileType) {
+			console.log(fileType);
 			list_downloadfile[i].createFile(content, filename)
 			.then((result) => {
 				console.log(result);
