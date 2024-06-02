@@ -17,10 +17,8 @@ const getContent = async (url) => {
           //console.log(html);
           const dom = new JSDOM(html);
           var gContent = dom.window.document.querySelector('.box-chap');
-          //console.log('not nulllllllll');
           if (gContent == null) {
             
-          //console.log('nullllllllllllllllllllllllllllllll');
           //console.log(html);
             const dom2 = new JSDOM(html);
             var gContent = dom2.window.document.querySelector('.content'); //.content
