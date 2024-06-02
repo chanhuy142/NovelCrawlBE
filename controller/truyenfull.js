@@ -18,8 +18,10 @@ const getContent = async (url) => {
   try {
     const html = await getHtmlThoughCloudflare(url);
     const dom = new JSDOM(html);
+
     //var content = dom.window.document.querySelector('.chapter-c').textContent;
     const chapter = dom.window.document.querySelector('.chapter-c');
+
     var content = '';
     chapter.childNodes.forEach(node => {
       if (node.nodeType === 3) { // Node.TEXT_NODE
@@ -36,6 +38,30 @@ const getContent = async (url) => {
         content += node.textContent + ' ';
       }
     });
+    if (content === '') {
+      let pElement = chapter.querySelector('p');
+      if (pElement !== null) {
+        pElement.childNodes.forEach(node => {
+          if (node.nodeType === 3) { // Node.TEXT_NODE
+            let text = node.textContent.trim();
+            content += text;
+            if (text.endsWith(".") || text.endsWith("!") || text.endsWith("?") || text.endsWith(":") || text.endsWith('."')) {
+              content += '\n\n';
+            }
+            else {
+              content += ' ';
+            }
+          }
+          else if (node.nodeName.toLowerCase() === 'i') {
+            content += node.textContent + ' ';
+          }
+        });
+      }
+    }
+
+    if(content === '') {
+      content = chapter.textContent;
+    }
   } catch (error) {
     //console.log(error);
   }
@@ -43,7 +69,8 @@ const getContent = async (url) => {
 }
 async function getNovel(novelName, chapter) {
   url = 'https://truyenfull.vn/' + novelName + '/chuong-' + chapter + '/';
-  content = await getContent(url)
+  content = await getContent(url);
+
   novel = new Novel('TruyenFull', content);
   return novel;
 }

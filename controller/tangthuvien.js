@@ -5,7 +5,7 @@ var cloudscraper = require('cloudscraper');
 const NovelDetail = require('../models/novel_detail')
 const getHtmlThoughCloudflare = async (url) => {
 
-  
+
   const html = await cloudscraper.get(url);
   return html;
 }
@@ -71,7 +71,6 @@ async function searchNovel(keyword) {
     urls = []
     descriptions = []
     const html = await getHtmlThoughCloudflare(url2);
-    console.log(html)
     const dom = new JSDOM(html);
     res = []
 
@@ -87,36 +86,40 @@ async function searchNovel(keyword) {
     //console.log(newurl)
 
     for (let i = 0; i < title.length; i++) {
-      //console.log(title[i].textContent)
-      titles.push(title[i].textContent);
-      imageurls.push(imageurl[i].src);
+      try {
+        //console.log(title[i].textContent)
+        titles.push(title[i].textContent);
+        imageurls.push(imageurl[i].src);
 
-      authors.push(author[i].textContent);
-      //extract number and add to chaps ex: chuong 1 -> 1
-      chaps.push(chap[i].textContent.match(/\d+/)[0]);
+        authors.push(author[i].textContent);
+        //extract number and add to chaps ex: chuong 1 -> 1
+        chaps.push(chap[i].textContent.match(/\d+/)[0]);
 
-      const newurl = title[i].getAttribute('href')
-      urls.push(title[i].getAttribute('href'));
-      html2 = await getHtmlThoughCloudflare(newurl)
-      const dom2 = new JSDOM(html2);
-      var description = dom2.window.document.querySelector('.book-intro');
-
-
-
-      //console.log(description.textContent);
-      descriptions.push(description.textContent);
-
-      novel_detail = new NovelDetail(
-        titles[i],
-        imageurls[i],
-        urls[i],
-        authors[i],
-        chaps[i],
-        descriptions[i]
-      )
+        const newurl = title[i].getAttribute('href')
+        urls.push(title[i].getAttribute('href'));
+        html2 = await getHtmlThoughCloudflare(newurl)
+        const dom2 = new JSDOM(html2);
+        var description = dom2.window.document.querySelector('.book-intro');
 
 
-      res.push(novel_detail)
+
+        //console.log(description.textContent);
+        descriptions.push(description.textContent);
+
+        novel_detail = new NovelDetail(
+          titles[i],
+          imageurls[i],
+          urls[i],
+          authors[i],
+          chaps[i],
+          descriptions[i]
+        )
+
+        res.push(novel_detail)
+      }
+      catch (error) {
+        console.log(error);
+      }
     }
 
 

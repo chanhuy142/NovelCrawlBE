@@ -3,7 +3,7 @@ const app = express();
 const Novel = require('./models/novel.js');
 const NovelDetail = require('./models/novel_detail.js');
 const {
-	getDetail,
+	getDetail, getDetail2
 } = require('./noveldetailcontroller/novel_detail_controller.js');
 app.use(express.json());
 
@@ -11,10 +11,11 @@ const { getListcontroller, getListDownloadFile } = require('./hotplug/hot_plug.j
 
 
 app.get('/', async (req, res) => {
+
 	list_controller = getListcontroller();
-	
 	novelName = req.query.novelName;
 	chapter = req.query.chapter;
+	console.log(novelName +' ' + chapter);
 	//http://localhost:3000/?novelName=ngao-the-dan-than&chapter=1
 	//http://localhost:3000/?novelName=muc-than-ky&chapter=1
 	//
@@ -51,7 +52,7 @@ app.get('/source', async (req, res) => {
 
 app.get('/details', async (req, res) => {
 	var resu = [];
-	resu = await getDetail('https://truyenfull.vn/danh-sach/truyen-hot/');
+	resu = await getDetail2('https://truyen.tangthuvien.vn/tong-hop?rank=td');
 	//remove all Truyen that have no cover atrribute
 
 	let novelObject = {
@@ -71,8 +72,6 @@ app.get('/search', async (req, res) => {
 
 		resu.push(novel);
 	}
-	//reverse the array
-	resu = resu.reverse();
 	//flatten the array
 	resu = resu.flat(1);
 
