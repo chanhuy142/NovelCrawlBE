@@ -1,4 +1,4 @@
-async function createFile(content, filename) {
+async function createFile(content, filename, author, coverImage) {
 	const fs = require('fs');
 	const pdf = require('pdf-creator-node');
 	const path = require('path');
@@ -11,13 +11,13 @@ async function createFile(content, filename) {
     <head>
     <style>
     body {
-        font-family: Georgia, Arial, sans-serif;
+        font-family: "Times New Roman", Times, serif;
         font-size: 25px;
 		white-space: pre;
     }
 	pre {
-		font-family:  Georgia, Arial, sans-serif;
-		font-size: 25px;
+		font-family:  "Times New Roman", Times, serif;
+		font-size: 30px;
 		word-wrap: break-word;
 		white-space: pre-wrap;
 		text-align: justify;

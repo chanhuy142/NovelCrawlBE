@@ -3,7 +3,7 @@ function getFileType() {
     return 'epub';
 }
 
-async function createFile(content, filename) {
+async function createFile(content, filename, author, coverImage) {
     const Epub = require('epub-gen');
     let filePath = './output.epub';
     var html;
@@ -12,12 +12,13 @@ async function createFile(content, filename) {
     <head>
     <style>
     body {
-        font-family: Georgia, Arial, sans-serif;
+        font-family: "Times New Roman", Times, serif;
         font-size: 25px;
 		white-space: pre;
+        text-align: justify;
     }
 	pre {
-		font-family: Georgia, Arial, sans-serif;
+		font-family: "Times New Roman", Times, serif;
 		font-size: 25px;
 		word-wrap: break-word;
 		white-space: pre-wrap;
@@ -33,8 +34,9 @@ async function createFile(content, filename) {
     
     const option = {
         title: filename,
-        author: "NovelCrawl",
+        author: author,
         publisher: "NovelCrawl",
+        cover: coverImage,
         content: [
             {
                 title: filename,
