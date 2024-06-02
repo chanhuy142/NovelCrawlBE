@@ -52,13 +52,15 @@ const getDetail = async (url) => {
           var description = dom2.window.document.querySelector('.desc-text');
           //descriptions.push(description.textContent);
           var text = '';
-          description.childNodes.forEach(node => {
-            if (node.nodeType === 3 || node.nodeName.toLowerCase() === 'i') { // Node.TEXT_NODE
-                text += node.textContent + '\n';
-            } else if (node.nodeType === 1 && (node.nodeName.toLowerCase() === 'strong'||node.nodeName.toLowerCase() === 'b')) { // Node.ELEMENT_NODE
-              text += node.textContent + ' ';
+          if (description !== null) {
+            description.childNodes.forEach(node => {
+              if (node.nodeType === 3 || node.nodeName.toLowerCase() === 'i') { // Node.TEXT_NODE
+                  text += node.textContent + '\n';
+              } else if (node.nodeType === 1 && (node.nodeName.toLowerCase() === 'strong'||node.nodeName.toLowerCase() === 'b')) { // Node.ELEMENT_NODE
+                text += node.textContent + ' ';
+            }
+            });
           }
-          });
 
           descriptions.push(text);
           novel_detail = new NovelDetail(
