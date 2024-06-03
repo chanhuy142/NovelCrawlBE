@@ -103,8 +103,11 @@ async function searchNovel(keyword) {
 
 
 
-        //console.log(description.textContent);
-        descriptions.push(description.textContent);
+        if(description !== null){
+          descriptions.push(description.textContent);}
+        else{
+          descriptions.push('No description available');
+        }
 
         novel_detail = new NovelDetail(
           titles[i],
