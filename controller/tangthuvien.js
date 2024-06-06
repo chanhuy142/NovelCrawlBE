@@ -83,7 +83,7 @@ async function searchNovel(keyword) {
 		chaps = [];
 		urls = [];
 		descriptions = [];
-		const html = await getHtmlThoughCloudflare(url);
+		const html = await getHtmlThoughCloudflare(url2);
 		const dom = new JSDOM(html);
 		//console.log(html);
 		res = [];
