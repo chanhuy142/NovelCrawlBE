@@ -11,9 +11,26 @@ const getHtmlThoughCloudflare = async (url) => {
 		//console.log(error);
 	}
 };
+const processChapter = (chapter) => {
+	//loop and get textContent
+	var res = [];
+	for (let i = 0; i < chapter.length; i++) {
+		res.push(chapter[i].textContent);
+	}
 
+	//chỉ lấy những res nào bắt đầu bằng Số chương
+
+	newres = [];
+	for (let i = 0; i < res.length; i++) {
+		if (res[i].startsWith('Số')) {
+			newres.push(res[i]);
+		}
+	}
+	return newres;
+};
 const getDetail2 = async (url) => {
 	try {
+		//console.log('aaaaaaaaaaaaaaaaaaaa');
 		//console.log(url)
 		titles = [];
 		imageurls = [];
@@ -25,33 +42,45 @@ const getDetail2 = async (url) => {
 		const dom = new JSDOM(html);
 		//console.log(html);
 		res = [];
-		const flag = 0;
+		var flag = 0;
 		var imageurl = dom.window.document.querySelectorAll('.lazy');
 		//console.log(imageurl[0].src)
 		var title = dom.window.document.querySelectorAll('h4 a');
 		var author = dom.window.document.querySelectorAll('.name');
 		//console.log(author[0].textContent);
 		var chap = dom.window.document.querySelectorAll('.KIBoOgno');
+		var url;
+
+		var newchap;
 		console.log(title.length);
 		if (title.length === 0) {
 			console.log('title is empty');
 			flag = 1;
 			title = dom.window.document.querySelectorAll('h4');
-			console.log(title.length);
-			imageurl = dom.window.document.querySelectorAll('.story-image');
+			//console.log(title.length);
+			imageurl = dom.window.document.querySelectorAll(
+				'.book-item a .story-image img'
+			);
 			author = dom.window.document.querySelectorAll('.item-author');
 			chap = dom.window.document.querySelectorAll('.item-update');
+			url = dom.window.document.querySelectorAll('.book-item a');
+			newchap = processChapter(chap);
+			console.log(newchap);
 		}
 
+		var j = 1;
+		var k = 2;
 		for (let i = 0; i < title.length; i++) {
 			try {
 				//console.log(title[i].textContent)
 				titles.push(title[i].textContent);
+				console.log(title[i].textContent);
 				imageurls.push(imageurl[i].src);
+				console.log(imageurl[i].src);
 
-				authors.push(author[i].textContent);
 				//extract number and add to chaps ex: chuong 1 -> 1
 				if (flag === 0) {
+					authors.push(author[i].textContent);
 					chaps.push(chap[i].textContent.match(/\d+/)[0]);
 
 					const newurl = title[i].getAttribute('href');
@@ -68,7 +97,26 @@ const getDetail2 = async (url) => {
 						descriptions.push('No description');
 					}
 				} else {
-					return res;
+					//chuong: Số chuơng: 491 => 491
+
+					chaps.push(newchap[i]);
+					authors.push(author[j].textContent);
+					j = j + 2;
+					k = k + 3;
+					const newurl = url[i].getAttribute('href');
+					urls.push(newurl);
+					html2 = await getHtmlThoughCloudflare(newurl);
+					//console.log(html2);
+					const dom2 = new JSDOM(html2);
+
+					try {
+						var description =
+							dom2.window.document.querySelector('.book-introduce');
+						descriptions.push(description.textContent);
+					} catch (error) {
+						console.log(error);
+						descriptions.push('No description');
+					}
 				}
 				//console.log(description.textContent);
 
