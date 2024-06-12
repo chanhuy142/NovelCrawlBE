@@ -10,16 +10,15 @@ const getHtmlThoughCloudflare = async (url) => {
     const html = await cloudscraper.get(url);
     return html;
   } catch (error) {
-    //console.log(error);
+    
   }
 }
-
 const getContent = async (url) => {
   try {
     const html = await getHtmlThoughCloudflare(url);
     const dom = new JSDOM(html);
 
-    //var content = dom.window.document.querySelector('.chapter-c').textContent;
+    
     const chapter = dom.window.document.querySelector('.chapter-c');
 
     var content = '';
@@ -58,12 +57,10 @@ const getContent = async (url) => {
         });
       }
     }
-
     if(content === '') {
       content = chapter.textContent;
     }
   } catch (error) {
-    //console.log(error);
   }
   return content
 }
@@ -91,23 +88,15 @@ async function searchNovel(keyword) {
     urls = []
     descriptions = []
     const html = await getHtmlThoughCloudflare(url);
-    //console.log(html)
+    
     const dom = new JSDOM(html);
     res = []
 
     var imageurl = dom.window.document.querySelectorAll('.col-xs-3>div>div');
-    //console.log(imageurl[0].getAttribute('data-image'))
-
     var title = dom.window.document.querySelectorAll('.truyen-title a');
-    //console.log(tittle.length);
     var author = dom.window.document.querySelectorAll('.author');
-
     var chap = dom.window.document.querySelectorAll('.col-xs-2>div>a');
-    // console.log(chap[0].textContent);
-    //console.log(imageurl.length);
-    //for each, get textContent
     for (let i = 0; i < title.length; i++) {
-      //console.log(title[i].textContent)
       titles.push(title[i].textContent);
       imageurls.push(imageurl[i].getAttribute('data-image'));
 
@@ -141,19 +130,10 @@ async function searchNovel(keyword) {
         chaps[i],
         descriptions[i]
       )
-
-
-
-      //console.log(description.textContent);
-
       res.push(novel_detail)
     }
-
-
-
   } catch (error) {
     console.log(error);
-
   }
   return res
 }
