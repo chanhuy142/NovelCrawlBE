@@ -82,7 +82,7 @@ const getTitle = async (url) => {
     for (let i = 1; i < 3; i++) {
       urls.push(url+'trang-'+i)
     }
-    console.log(urls);
+    //console.log(urls);
     contents=[]
     for (let i = 0; i < urls.length; i++) {
       content= await getTitle(urls[i])

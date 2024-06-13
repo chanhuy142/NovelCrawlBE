@@ -5,8 +5,8 @@
     Run "node app.js" to start server
 </li>
 <li>
-   request url: http://localhost:3000/?tentruyen=@tentruyen&chapter=@chapter
-    For example: http://localhost:3000/?tentruyen=ngao-the-dan-than&chapter=5
+   request url: http://localhost:3000/?novelName=@novelName&chapter=@chapter
+    For example: http://localhost:3000/?novelName=ngao-the-dan-than&chapter=5
 </li>
 <li>
    Crawl code is in controller
