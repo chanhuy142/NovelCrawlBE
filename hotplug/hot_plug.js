@@ -8,7 +8,8 @@ const getListcontroller = () => {
     const files = fs.readdirSync(dir);
     let controllers_name = [];
     files.forEach(file => {
-        controllers_name.push(file.split('.')[0]);
+        if(file.endsWith('.js'))
+            controllers_name.push(file.split('.')[0]);
     });
     //add .js to each controller name
     controllers_name = controllers_name.map(controller => controller + '.js');
@@ -29,7 +30,8 @@ const getListDownloadFile =  () => {
     const files = fs.readdirSync(dir);
     let controllers_name = [];
     files.forEach(file => {
-        controllers_name.push(file.split('.')[0]);
+        if(file.endsWith('.js'))
+            controllers_name.push(file.split('.')[0]);
     });
     //add .js to each controller name
     controllers_name = controllers_name.map(controller => controller + '.js');
