@@ -119,9 +119,7 @@ async function searchNovel(keyword) {
 			try {
 				//console.log(title[i].textContent)
 				titles.push(title[i].textContent);
-				console.log(title[i].textContent);
 				imageurls.push(imageurl[i].src);
-				console.log(imageurl[i].src);
 
 				//extract number and add to chaps ex: chuong 1 -> 1
 				if (flag === 0) {
@@ -164,7 +162,9 @@ async function searchNovel(keyword) {
 					}
 				}
 				//console.log(description.textContent);
-
+				if(descriptions[i] === undefined){
+					descriptions[i] = 'No description';
+				}
 				novel_detail = new NovelDetail(
 					titles[i],
 					imageurls[i],
